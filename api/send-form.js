@@ -6,10 +6,10 @@ export default async function handler(req, res) {
   try {
     const { name, email } = req.body;
 
-    // Hier würdest du später z. B. in eine Datenbank speichern oder eine E-Mail verschicken
-    console.log("Neue Anfrage:", name, email);
+    // --- Hier kannst du später z. B. in Datenbank speichern oder Mail versenden ---
+    console.log("Neue Anfrage erhalten:", name, email);
 
-    // Immer Erfolg zurückgeben
+    // Antworte sofort erfolgreich an den Browser
     return res.status(200).json({ success: true });
   } catch (error) {
     console.error("Server Error:", error);
