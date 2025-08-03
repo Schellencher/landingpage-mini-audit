@@ -1,89 +1,92 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mini-Audit - Prozesse automatisieren & Zeit sparen</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f0f2f5;
-      margin: 0;
-      padding: 0;
-      text-align: center;
-    }
-    header {
-      background-color: #4CAF50;
-      color: white;
-      padding: 20px;
-    }
-    section {
-      background-color: #fff;
-      padding: 40px 20px;
-      border-radius: 10px;
-      max-width: 500px;
-      margin: 40px auto;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-    input {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-    button {
-      background-color: #4CAF50;
-      color: white;
-      padding: 12px 20px;
-      border: none;
-      cursor: pointer;
-      font-size: 16px;
-      border-radius: 5px;
-      width: 100%;
-      margin-top: 10px;
-    }
-    button:hover {
-      background-color: #45a049;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini-Audit - Prozesse automatisieren & Zeit sparen</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        section {
+            background-color: #fff;
+            padding: 40px 20px;
+            border-radius: 10px;
+            max-width: 500px;
+            margin: 40px auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            margin-top: 10px;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
 
 <header>
-  <h1>🚀 Hol dir dein kostenloses Mini-Audit!</h1>
-  <p>Automatisiere Prozesse und spare jede Woche Stunden!</p>
+    <h1>🚀 Hol dir dein kostenloses Mini-Audit!</h1>
+    <p>Automatisiere Prozesse und spare jede Woche Stunden!</p>
 </header>
 
 <section>
-  <h2>📧 Jetzt Mini-Audit anfordern</h2>
-  <p>In 15 Minuten zeige ich dir, wie du Prozesse automatisierst und Kosten reduzierst.</p>
+    <h2>📩 Jetzt Mini-Audit anfordern</h2>
+    <p>In 15 Minuten zeige ich dir, wie du Prozesse automatisierst und Kosten reduzierst.</p>
 
-  <form id="auditForm" action="https://formspree.io/f/meozlpjl" method="POST">
-    <input type="text" name="name" placeholder="Dein Name" required>
-    <input type="email" name="email" placeholder="Deine E-Mail-Adresse" required>
-    <button type="submit">✅ Kostenloses Mini-Audit anfordern</button>
-  </form>
+    <form id="auditForm" action="https://formspree.io/f/meozlpjl" method="POST">
+        <input type="text" name="name" placeholder="Dein Name" required>
+        <input type="email" name="email" placeholder="Deine E-Mail-Adresse" required>
+        <button type="submit">✅ Kostenloses Mini-Audit anfordern</button>
+    </form>
 </section>
 
 <script>
-  const form = document.getElementById('auditForm');
-  form.addEventListener('submit', async function(e) {
-    e.preventDefault();
+const form = document.getElementById('auditForm');
+
+form.addEventListener('submit', async function(e) {
+    e.preventDefault();  // Standard-Submit verhindern
+
     const formData = new FormData(form);
 
     const response = await fetch(form.action, {
-      method: form.method,
-      body: formData,
-      headers: { 'Accept': 'application/json' }
+        method: form.method,
+        body: formData,
+        headers: { 'Accept': 'application/json' }
     });
 
     if (response.ok) {
-      window.location.href = "thankyou.html"; // Weiterleitung nach Erfolg
+        window.location.href = "thankyou.html";  // Weiterleitung bei Erfolg
     } else {
-      alert("Ups! Etwas ist schiefgelaufen. Bitte versuche es erneut.");
+        alert("Ups! Etwas ist schiefgelaufen. Bitte versuche es erneut.");
     }
-  });
+});
 </script>
 
 </body>
