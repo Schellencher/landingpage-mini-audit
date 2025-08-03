@@ -5,25 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mini-Audit - Prozesse automatisieren & Zeit sparen</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f2f5;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
+        body { font-family: Arial, sans-serif; background-color: #f0f2f5; margin: 0; padding: 0; }
+        header { background-color: #4CAF50; color: white; padding: 20px; text-align: center; }
         section {
             background-color: #fff;
             padding: 40px 20px;
             border-radius: 10px;
             max-width: 500px;
             margin: 40px auto;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
             text-align: center;
         }
         input {
@@ -44,9 +34,7 @@
             margin-top: 10px;
             width: 100%;
         }
-        button:hover {
-            background-color: #45a049;
-        }
+        button:hover { background-color: #45a049; }
     </style>
 </head>
 <body>
@@ -60,6 +48,7 @@
     <h2>📩 Jetzt Mini-Audit anfordern</h2>
     <p>In 15 Minuten zeige ich dir, wie du Prozesse automatisierst und Kosten reduzierst.</p>
 
+    <!-- Kein action-Attribut mehr -->
     <form id="auditForm">
         <input type="text" name="name" placeholder="Dein Name" required>
         <input type="email" name="email" placeholder="Deine E-Mail-Adresse" required>
@@ -71,7 +60,7 @@
 const form = document.getElementById('auditForm');
 
 form.addEventListener('submit', async function(e) {
-    e.preventDefault(); // Verhindert die Standard-Weiterleitung
+    e.preventDefault(); // Kein Standard-Submit
 
     const formData = new FormData(form);
 
@@ -82,7 +71,7 @@ form.addEventListener('submit', async function(e) {
     });
 
     if (response.ok) {
-        // ✅ Erfolgreich -> Weiterleitung zu deiner eigenen Seite
+        // Nur deine Seite wird geladen
         window.location.href = "thankyou.html";
     } else {
         alert("Ups! Etwas ist schiefgelaufen. Bitte versuche es erneut.");
