@@ -5,43 +5,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mini-Audit - Prozesse automatisieren & Zeit sparen</title>
   <style>
-    body { 
-      font-family: Arial, sans-serif; 
-      background-color: #f0f2f5; 
-      margin: 0; 
-      padding: 0; 
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+      margin: 0;
+      padding: 0;
     }
-    header { 
-      background-color: #4CAF50; 
-      color: white; 
-      padding: 20px; 
-      text-align: center; 
+    header {
+      background-color: #4CAF50;
+      color: white;
+      padding: 20px;
+      text-align: center;
     }
-    section { 
-      background-color: #fff; 
-      padding: 40px 20px; 
-      border-radius: 10px; 
-      max-width: 500px; 
-      margin: 40px auto; 
-      box-shadow: 0 0 10px rgba(0,0,0,0.1); 
-      text-align: center; 
+    section {
+      background-color: #fff;
+      padding: 40px 20px;
+      border-radius: 10px;
+      max-width: 500px;
+      margin: 40px auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
     }
-    input, button { 
-      width: 100%; 
-      padding: 10px; 
-      margin: 10px 0; 
-      border: 1px solid #ccc; 
-      border-radius: 5px; 
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
     }
-    button { 
-      background-color: #4CAF50; 
-      color: white; 
-      border: none; 
-      cursor: pointer; 
-      font-size: 16px; 
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
     }
-    button:hover { 
-      background-color: #45a049; 
+    button:hover {
+      background-color: #45a049;
     }
   </style>
 </head>
@@ -57,38 +57,42 @@
   <p>In 15 Minuten zeige ich dir, wie du Prozesse automatisierst und Kosten reduzierst.</p>
 
   <form id="auditForm">
-    <input type="text" name="name" placeholder="Dein Name" required>
-    <input type="email" name="email" placeholder="Deine E-Mail-Adresse" required>
+    <input type="text" id="name" name="name" placeholder="Dein Name" required>
+    <input type="email" id="email" name="email" placeholder="Deine E-Mail-Adresse" required>
     <button type="submit">✅ Kostenloses Mini-Audit anfordern</button>
   </form>
 </section>
 
 <script>
-  const form = document.getElementById('auditForm');
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
+const form = document.getElementById('auditForm');
 
-    const formData = {
-      name: form.name.value,
-      email: form.email.value
-    };
+form.addEventListener('submit', async (e) => {
+  e.preventDefault(); // Verhindert normales Abschicken
 
-    try {
-      const response = await fetch('/api/send-form', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-      });
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
 
-      if (response.ok) {
-        window.location.href = 'thankyou.html';
-      } else {
-        alert('Ups! Etwas ist schiefgelaufen. Bitte versuche es erneut.');
-      }
-    } catch (error) {
-      alert('Netzwerkfehler. Bitte versuche es erneut.');
+  if (!name || !email) {
+    alert('Bitte fülle alle Felder aus.');
+    return;
+  }
+
+  try {
+    const response = await fetch('/api/send-form', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email }),
+    });
+
+    if (response.ok) {
+      window.location.href = 'thankyou.html';
+    } else {
+      alert('Ups! Etwas ist schiefgelaufen. Bitte versuche es erneut.');
     }
-  });
+  } catch (err) {
+    alert('Netzwerkfehler. Bitte versuche es erneut.');
+  }
+});
 </script>
 
 </body>
