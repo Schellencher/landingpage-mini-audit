@@ -11,14 +11,12 @@
       margin: 0;
       padding: 0;
     }
-
     header {
       background-color: #4CAF50;
       color: white;
       padding: 20px;
       text-align: center;
     }
-
     section {
       background-color: #fff;
       padding: 40px 20px;
@@ -28,7 +26,6 @@
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
       text-align: center;
     }
-
     input {
       width: 100%;
       padding: 10px;
@@ -36,7 +33,6 @@
       border: 1px solid #ccc;
       border-radius: 5px;
     }
-
     button {
       background-color: #4CAF50;
       color: white;
@@ -48,45 +44,32 @@
       margin-top: 10px;
       width: 100%;
     }
-
     button:hover {
       background-color: #45a049;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>🚀 Hol dir dein kostenloses Mini-Audit!</h1>
-    <p>Automatisiere Prozesse und spare jede Woche Stunden!</p>
-  </header>
 
-  <section>
-    <h2>📩 Jetzt Mini-Audit anfordern</h2>
-    <p>In 15 Minuten zeige ich dir, wie du Prozesse automatisieren und Kosten reduzieren kannst.</p>
+<header>
+  <h1>🚀 Hol dir dein kostenloses Mini-Audit!</h1>
+  <p>Automatisiere Prozesse und spare jede Woche Stunden!</p>
+</header>
 
-    <form action="https://formspree.io/f/meozlpjl" method="POST">
-      <input type="text" name="name" placeholder="Dein Name" required>
-      <input type="email" name="email" placeholder="Deine E-Mail-Adresse" required>
-      <button type="submit">✅ Kostenloses Mini-Audit anfordern</button>
-    </form>
-  </section>
+<section>
+  <h2>📩 Jetzt Mini-Audit anfordern</h2>
+  <p>In 15 Minuten zeige ich dir, wie du Prozesse automatisierst und Kosten reduzierst.</p>
 
-  <script>
-    const form = document.querySelector("form");
-    form.addEventListener("submit", async function (event) {
-      event.preventDefault(); // Verhindert das Standard-Absenden
-      const data = new FormData(form);
-      const response = await fetch(form.action, {
-        method: form.method,
-        body: data,
-        headers: { Accept: "application/json" }
-      });
-      if (response.ok) {
-        window.location.href = "thankyou.html"; // Weiterleitung zur Danke-Seite
-      } else {
-        alert("Es gab ein Problem beim Senden. Bitte versuche es erneut.");
-      }
-    });
-  </script>
+  <form action="https://formspree.io/f/meozlpjl" method="POST">
+    <input type="text" name="name" placeholder="Dein Name" required>
+    <input type="email" name="email" placeholder="Deine E-Mail-Adresse" required>
+
+    <!-- Automatische Weiterleitung nach erfolgreichem Absenden -->
+    <input type="hidden" name="_next" value="https://landingpage-mini-audit.vercel.app/thankyou.html">
+
+    <button type="submit">✅ Kostenloses Mini-Audit anfordern</button>
+  </form>
+</section>
+
 </body>
 </html>
