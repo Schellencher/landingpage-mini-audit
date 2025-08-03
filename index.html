@@ -34,7 +34,7 @@
 </section>
 
 <script>
-document.getElementById('submitBtn').addEventListener('click', async function() {
+document.getElementById('submitBtn').addEventListener('click', function() {
     const name = document.getElementById('name').value.trim();
     const email = document.getElementById('email').value.trim();
 
@@ -43,26 +43,13 @@ document.getElementById('submitBtn').addEventListener('click', async function() 
         return;
     }
 
-    const data = { name, email };
+    const data = JSON.stringify({ name, email });
 
-    try {
-        // Wir schicken die Daten, warten aber nicht auf die Formspree-Seite
-        fetch("https://formspree.io/f/meozlpjl", {
-            method: "POST",
-            headers: { 
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify(data),
-            redirect: "manual" // Verhindert automatische Weiterleitung
-        });
+    // Sende die Daten im Hintergrund ohne auf Antwort zu warten
+    navigator.sendBeacon("https://formspree.io/f/meozlpjl", data);
 
-        // Sofort eigene Thank-You-Seite laden
-        window.location.href = "thankyou.html";
-
-    } catch (error) {
-        alert("Netzwerkfehler. Bitte versuche es erneut.");
-    }
+    // Sofort eigene Danke-Seite aufrufen
+    window.location.href = "thankyou.html";
 });
 </script>
 
