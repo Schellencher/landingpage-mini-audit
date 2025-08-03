@@ -7,8 +7,9 @@
   <style>
     body { font-family: Arial, sans-serif; background-color: #f0f2f5; margin: 0; padding: 0; }
     header { background-color: #4CAF50; color: white; padding: 20px; text-align: center; }
-    section { background-color: #fff; padding: 40px 20px; border-radius: 10px;
-              max-width: 500px; margin: 40px auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); text-align: center; }
+    section { background-color: #fff; padding: 40px 20px; border-radius: 10px; 
+              max-width: 500px; margin: 40px auto; 
+              box-shadow: 0 0 10px rgba(0,0,0,0.1); text-align: center; }
     input, button { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; }
     button { background-color: #4CAF50; color: white; border: none; cursor: pointer; font-size: 16px; }
     button:hover { background-color: #45a049; }
@@ -26,32 +27,35 @@
   <p>In 15 Minuten zeige ich dir, wie du Prozesse automatisierst und Kosten reduzierst.</p>
 
   <form id="auditForm">
-    <input type="text" name="name" placeholder="Dein Name" required>
-    <input type="email" name="email" placeholder="Deine E-Mail-Adresse" required>
+    <input type="text" id="name" placeholder="Dein Name" required>
+    <input type="email" id="email" placeholder="Deine E-Mail-Adresse" required>
     <button type="submit">✅ Kostenloses Mini-Audit anfordern</button>
   </form>
 </section>
 
 <script>
-document.getElementById('auditForm').addEventListener('submit', async function(e) {
-  e.preventDefault();
+document.getElementById('auditForm').addEventListener('submit', async function(event) {
+  event.preventDefault(); // Kein Seitenreload
 
-  const formData = {
-    name: e.target.name.value,
-    email: e.target.email.value
-  };
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+
+  if (!name || !email) {
+    alert("Bitte fülle alle Felder aus.");
+    return;
+  }
 
   try {
     const response = await fetch('/api/send-form', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData)
+      body: JSON.stringify({ name, email })
     });
 
     if (response.ok) {
-      window.location.href = 'thankyou.html';
+      window.location.href = "thankyou.html"; // Eigene Danke-Seite
     } else {
-      alert("Ups, etwas ist schiefgelaufen. Bitte versuche es erneut.");
+      alert("Ups! Es gab ein Problem. Bitte versuche es erneut.");
     }
   } catch (err) {
     alert("Netzwerkfehler. Bitte versuche es erneut.");
