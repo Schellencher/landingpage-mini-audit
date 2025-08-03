@@ -8,8 +8,7 @@
     body { font-family: Arial, sans-serif; background-color: #f0f2f5; margin: 0; padding: 0; }
     header { background-color: #4CAF50; color: white; padding: 20px; text-align: center; }
     section { background-color: #fff; padding: 40px 20px; border-radius: 10px;
-              max-width: 500px; margin: 40px auto;
-              box-shadow: 0 0 10px rgba(0,0,0,0.1); text-align: center; }
+              max-width: 500px; margin: 40px auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); text-align: center; }
     input, button { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; }
     button { background-color: #4CAF50; color: white; border: none; cursor: pointer; font-size: 16px; }
     button:hover { background-color: #45a049; }
@@ -26,41 +25,37 @@
   <h2>📧 Jetzt Mini-Audit anfordern</h2>
   <p>In 15 Minuten zeige ich dir, wie du Prozesse automatisierst und Kosten reduzierst.</p>
 
-  <div id="auditForm">
-      <input type="text" id="name" placeholder="Dein Name" required>
-      <input type="email" id="email" placeholder="Deine E-Mail-Adresse" required>
-      <button id="submitBtn">✅ Kostenloses Mini-Audit anfordern</button>
-  </div>
+  <form id="auditForm">
+    <input type="text" name="name" placeholder="Dein Name" required>
+    <input type="email" name="email" placeholder="Deine E-Mail-Adresse" required>
+    <button type="submit">✅ Kostenloses Mini-Audit anfordern</button>
+  </form>
 </section>
 
 <script>
-document.getElementById('submitBtn').addEventListener('click', function(event) {
-    event.preventDefault(); // verhindert jede Browser-Aktion
+document.getElementById('auditForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
 
-    const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
+  const formData = {
+    name: e.target.name.value,
+    email: e.target.email.value
+  };
 
-    if (!name || !email) {
-        alert("Bitte fülle alle Felder aus.");
-        return;
+  try {
+    const response = await fetch('/api/send-form', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData)
+    });
+
+    if (response.ok) {
+      window.location.href = 'thankyou.html';
+    } else {
+      alert("Ups, etwas ist schiefgelaufen. Bitte versuche es erneut.");
     }
-
-    // Daten im klassischen x-www-form-urlencoded Format
-    const formData = new URLSearchParams();
-    formData.append('name', name);
-    formData.append('email', email);
-
-    // Fetch mit "no-cors" und ohne Redirect
-    fetch("https://formspree.io/f/meozlpjl", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: formData.toString(),
-        mode: "no-cors",  // Browser ignoriert Antwort
-        redirect: "manual" // Verhindert Weiterleitung
-    }).catch(err => console.log("Hintergrund-Fehler:", err));
-
-    // Sofort deine eigene Danke-Seite laden
-    window.location.href = "thankyou.html";
+  } catch (err) {
+    alert("Netzwerkfehler. Bitte versuche es erneut.");
+  }
 });
 </script>
 
