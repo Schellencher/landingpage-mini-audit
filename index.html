@@ -43,11 +43,11 @@ document.getElementById('submitBtn').addEventListener('click', function() {
         return;
     }
 
-    // Daten vorbereiten im Format: key=value&key=value
-    const data = new URLSearchParams({ name, email }).toString();
-    const blob = new Blob([data], { type: 'application/x-www-form-urlencoded' });
+    // sendBeacon funktioniert zuverlässig nur mit 'text/plain'
+    const data = `name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}`;
+    const blob = new Blob([data], { type: 'text/plain' });
 
-    // Formspree bekommt die Daten, aber Browser wartet NICHT
+    // Stiller Hintergrund-Request → Formspree erhält Daten, Browser wartet NICHT
     navigator.sendBeacon("https://formspree.io/f/meozlpjl", blob);
 
     // Sofort eigene Danke-Seite laden
