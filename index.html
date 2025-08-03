@@ -26,22 +26,24 @@
   <h2>📧 Jetzt Mini-Audit anfordern</h2>
   <p>In 15 Minuten zeige ich dir, wie du Prozesse automatisierst und Kosten reduzierst.</p>
 
-  <!-- Form ohne action, wir übernehmen die Kontrolle -->
-  <form id="auditForm" onsubmit="return false;">
-      <input type="text" name="name" placeholder="Dein Name" required>
-      <input type="email" name="email" placeholder="Deine E-Mail-Adresse" required>
-      <button type="submit">✅ Kostenloses Mini-Audit anfordern</button>
-  </form>
+  <div id="auditForm">
+      <input type="text" id="name" placeholder="Dein Name" required>
+      <input type="email" id="email" placeholder="Deine E-Mail-Adresse" required>
+      <button id="submitBtn">✅ Kostenloses Mini-Audit anfordern</button>
+  </div>
 </section>
 
 <script>
-const form = document.getElementById('auditForm');
+document.getElementById('submitBtn').addEventListener('click', async function() {
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
 
-form.addEventListener('submit', async function(e) {
-    e.preventDefault(); // Browser-Submit verhindern
+    if (!name || !email) {
+        alert("Bitte fülle alle Felder aus.");
+        return;
+    }
 
-    const formData = new FormData(form);
-    const object = Object.fromEntries(formData.entries());
+    const data = { name, email };
 
     try {
         const response = await fetch("https://formspree.io/f/meozlpjl", {
@@ -50,12 +52,11 @@ form.addEventListener('submit', async function(e) {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             },
-            body: JSON.stringify(object),
-            redirect: "manual" // Blockiert Formspree-Weiterleitung
+            body: JSON.stringify(data)
         });
 
         if (response.ok) {
-            window.location.href = "thankyou.html"; // Weiterleitung nur zu deiner Seite
+            window.location.href = "thankyou.html"; // Nur deine Seite
         } else {
             alert("Ups! Etwas ist schiefgelaufen. Bitte versuche es erneut.");
         }
