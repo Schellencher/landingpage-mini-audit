@@ -43,12 +43,14 @@ document.getElementById('submitBtn').addEventListener('click', function() {
         return;
     }
 
-    const data = JSON.stringify({ name, email });
+    // Daten vorbereiten im Format: key=value&key=value
+    const data = new URLSearchParams({ name, email }).toString();
+    const blob = new Blob([data], { type: 'application/x-www-form-urlencoded' });
 
-    // Sende die Daten im Hintergrund ohne auf Antwort zu warten
-    navigator.sendBeacon("https://formspree.io/f/meozlpjl", data);
+    // Formspree bekommt die Daten, aber Browser wartet NICHT
+    navigator.sendBeacon("https://formspree.io/f/meozlpjl", blob);
 
-    // Sofort eigene Danke-Seite aufrufen
+    // Sofort eigene Danke-Seite laden
     window.location.href = "thankyou.html";
 });
 </script>
