@@ -1,28 +1,102 @@
-<script>
-const form = document.getElementById('auditForm');
-
-form.addEventListener('submit', async (e) => {
-  e.preventDefault();
-
-  const name = form.name.value.trim();
-  const email = form.email.value.trim();
-  if (!name || !email) { alert('Bitte fülle alle Felder aus.'); return; }
-
-  try {
-    const res = await fetch('/api/send-form', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email })
-    });
-
-    if (res.ok) {
-      window.location.href = 'thankyou.html';
-    } else {
-      const data = await res.json().catch(() => ({}));
-      alert('Fehler: ' + (data.error || res.status));
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini-Audit – Prozesse automatisieren</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+      margin: 0;
+      padding: 0;
     }
-  } catch (err) {
-    alert('Netzwerkfehler. Bitte versuche es erneut.');
-  }
-});
+
+    header {
+      background-color: #4CAF50;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    section {
+      background-color: #fff;
+      padding: 40px 20px;
+      border-radius: 10px;
+      max-width: 500px;
+      margin: 40px auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🚀 Hol dir dein kostenloses Mini-Audit!</h1>
+  <p>Automatisiere Prozesse und spare jede Woche Stunden!</p>
+</header>
+
+<section>
+  <form id="auditForm">
+    <input type="text" name="name" placeholder="Dein Name" required>
+    <input type="email" name="email" placeholder="Deine E-Mail" required>
+    <button type="submit">Absenden</button>
+  </form>
+</section>
+
+<script>
+  const form = document.getElementById('auditForm');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const name = form.name.value.trim();
+    const email = form.email.value.trim();
+
+    if (!name || !email) {
+      alert('Bitte fülle alle Felder aus.');
+      return;
+    }
+
+    try {
+      const res = await fetch('/api/send-form', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email })
+      });
+
+      if (res.ok) {
+        window.location.href = 'thankyou.html';
+      } else {
+        const data = await res.json().catch(() => ({}));
+        alert('Fehler: ' + (data.error || res.status));
+      }
+    } catch (err) {
+      alert('Netzwerkfehler. Bitte versuche es erneut.');
+    }
+  });
 </script>
+
+</body>
+</html>
