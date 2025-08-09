@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mini-Audit – Prozesse automatisieren</title>
+  <meta name="description" content="Hol dir dein kostenloses Mini-Audit, automatisiere Prozesse und spare jede Woche Stunden an Arbeit!">
   <link rel="canonical" href="https://getlaunchedge.com/">
   <style>
     body {
@@ -66,38 +67,4 @@
   </form>
 </section>
 
-<script>
-  const form = document.getElementById('auditForm');
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const name = form.name.value.trim();
-    const email = form.email.value.trim();
-
-    if (!name || !email) {
-      alert('Bitte fülle alle Felder aus.');
-      return;
-    }
-
-    try {
-      const res = await fetch('/api/send-form', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email })
-      });
-
-      if (res.ok) {
-        window.location.href = 'thankyou.html';
-      } else {
-        const data = await res.json().catch(() => ({}));
-        alert('Fehler: ' + (data.error || res.status));
-      }
-    } catch (err) {
-      alert('Netzwerkfehler. Bitte versuche es erneut.');
-    }
-  });
-</script>
-
-</body>
-</html>
+<script
