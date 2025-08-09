@@ -13,14 +13,12 @@
       margin: 0;
       padding: 0;
     }
-
     header {
       background-color: #4CAF50;
       color: white;
       padding: 20px;
       text-align: center;
     }
-
     section {
       background-color: #fff;
       padding: 40px 20px;
@@ -30,7 +28,6 @@
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
       text-align: center;
     }
-
     input, button {
       width: 100%;
       padding: 10px;
@@ -39,16 +36,24 @@
       border-radius: 5px;
       font-size: 16px;
     }
-
     button {
       background-color: #4CAF50;
       color: white;
       border: none;
       cursor: pointer;
     }
-
     button:hover {
       background-color: #45a049;
+    }
+    label {
+      font-size: 14px;
+      display: block;
+      text-align: left;
+      margin-top: 10px;
+    }
+    /* Honeypot verstecken */
+    .hidden-field {
+      display: none;
     }
   </style>
 </head>
@@ -63,8 +68,57 @@
   <form id="auditForm">
     <input type="text" name="name" placeholder="Dein Name" required>
     <input type="email" name="email" placeholder="Deine E-Mail" required>
+
+    <!-- Honeypot gegen Bots -->
+    <input type="text" name="company" class="hidden-field">
+
+    <!-- DSGVO-Zustimmung -->
+    <label>
+      <input type="checkbox" name="consent" required>
+      Ich stimme zu, per E-Mail kontaktiert zu werden. Hinweise in der Datenschutzerklärung.
+    </label>
+
     <button type="submit">Absenden</button>
   </form>
 </section>
 
-<script
+<script>
+  const form = document.getElementById('auditForm');
+
+  // Honeypot-Funktion
+  const isBot = () => form.company && form.company.value.trim().length > 0;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    if (isBot()) return; // Abbrechen, wenn Honeypot gefüllt
+
+    const name  = form.name.value.trim();
+    const email = form.email.value.trim();
+
+    if (!name || !email) {
+      alert('Bitte fülle alle Felder aus.');
+      return;
+    }
+
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ name, email })
+      });
+
+      if (res.ok) {
+        window.location.href = 'thankyou.html';
+      } else {
+        const data = await res.json().catch(() => ({}));
+        alert('Fehler: ' + (data.error || res.status));
+      }
+    } catch {
+      alert('Netzwerkfehler. Bitte versuche es erneut.');
+    }
+  });
+</script>
+
+</body>
+</html>
