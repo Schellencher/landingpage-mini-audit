@@ -1,99 +1,28 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mini-Audit - Prozesse automatisieren & Zeit sparen</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f0f2f5;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background-color: #4CAF50;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
-    section {
-      background-color: #fff;
-      padding: 40px 20px;
-      border-radius: 10px;
-      max-width: 500px;
-      margin: 40px auto;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-    input, button {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-    button {
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      cursor: pointer;
-      font-size: 16px;
-    }
-    button:hover {
-      background-color: #45a049;
-    }
-  </style>
-</head>
-<body>
-
-<header>
-  <h1>🚀 Hol dir dein kostenloses Mini-Audit!</h1>
-  <p>Automatisiere Prozesse und spare jede Woche Stunden!</p>
-</header>
-
-<section>
-  <h2>📧 Jetzt Mini-Audit anfordern</h2>
-  <p>In 15 Minuten zeige ich dir, wie du Prozesse automatisierst und Kosten reduzierst.</p>
-
-  <form id="auditForm">
-    <input type="text" id="name" name="name" placeholder="Dein Name" required>
-    <input type="email" id="email" name="email" placeholder="Deine E-Mail-Adresse" required>
-    <button type="submit">✅ Kostenloses Mini-Audit anfordern</button>
-  </form>
-</section>
-
 <script>
 const form = document.getElementById('auditForm');
 
 form.addEventListener('submit', async (e) => {
-  e.preventDefault(); // Verhindert normales Abschicken
+  e.preventDefault();
 
-  const name = document.getElementById('name').value.trim();
-  const email = document.getElementById('email').value.trim();
-
-  if (!name || !email) {
-    alert('Bitte fülle alle Felder aus.');
-    return;
-  }
+  const name = form.name.value.trim();
+  const email = form.email.value.trim();
+  if (!name || !email) { alert('Bitte fülle alle Felder aus.'); return; }
 
   try {
-    const response = await fetch('/api/send-form', {
+    const res = await fetch('/api/send-form', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData),
+      body: JSON.stringify({ name, email })
     });
 
-    if (response.ok) {
+    if (res.ok) {
       window.location.href = 'thankyou.html';
     } else {
-      alert('Ups! Etwas ist schiefgelaufen. Bitte versuche es erneut.');
+      const data = await res.json().catch(() => ({}));
+      alert('Fehler: ' + (data.error || res.status));
     }
   } catch (err) {
     alert('Netzwerkfehler. Bitte versuche es erneut.');
   }
 });
 </script>
-
-</body>
-</html>
