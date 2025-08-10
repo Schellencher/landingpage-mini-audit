@@ -1,25 +1,37 @@
 export default async function handler(req, res) {
-  // CORS immer setzen
+  // CORS auf JEDE Antwort anwenden
   res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Methods', 'POST,OPTIONS');
 
   // Preflight
   if (req.method === 'OPTIONS') {
-    res.setHeader('Access-Control-Allow-Methods', 'POST,OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     return res.status(204).end();
   }
 
   if (req.method !== 'POST') {
-    return res.status(405).json({ success: false, error: 'Method not allowed' });
+    return res
+      .status(405)
+      .json({ success: false, error: 'Method not allowed' });
   }
 
   try {
-    const { name = '', email = '' } = req.body || {};
-    if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
-      return res.status(400).json({ success: false, error: 'Invalid email' });
+    // Falls Vercel/Client den Body als String schickt, sicher parsen
+    let body = req.body;
+    if (typeof body === 'string') {
+      try { body = JSON.parse(body); } catch { body = {}; }
     }
 
-    // Group-ID in Zahl umwandeln (und nur setzen, wenn gültig)
+    const rawName = (body?.name ?? '').toString().trim();
+    const rawEmail = (body?.email ?? '').toString().trim().toLowerCase();
+
+    if (!rawEmail || !/^\S+@\S+\.\S+$/.test(rawEmail)) {
+      return res
+        .status(400)
+        .json({ success: false, error: 'Invalid email' });
+    }
+
+    // MAILERLITE_GROUP_ID -> Zahl (nur wenn wirklich valide)
     let groupsPart = {};
     if (process.env.MAILERLITE_GROUP_ID) {
       const gid = Number(String(process.env.MAILERLITE_GROUP_ID).trim());
@@ -29,8 +41,8 @@ export default async function handler(req, res) {
     }
 
     const payload = {
-      email,
-      fields: { name },
+      email: rawEmail,
+      fields: { name: rawName },
       ...groupsPart,
       status: 'active',
     };
@@ -46,18 +58,25 @@ export default async function handler(req, res) {
     });
 
     const text = await r.text();
-    let ml; try { ml = text ? JSON.parse(text) : null; } catch {}
+    let ml = null;
+    try { ml = text ? JSON.parse(text) : null; } catch { /* ignore */ }
 
     if (!r.ok) {
+      // Aussagekräftige Fehlermeldung bauen
       const msg =
-        (ml && (ml.error?.message || ml.message)) ||
+        ml?.error?.message ||
+        ml?.message ||
         text ||
         'MailerLite error';
-      return res.status(r.status).json({ success: false, error: msg });
+      return res
+        .status(r.status || 500)
+        .json({ success: false, error: msg });
     }
 
     return res.status(200).json({ success: true });
-  } catch {
-    return res.status(500).json({ success: false, error: 'Server error' });
+  } catch (e) {
+    return res
+      .status(500)
+      .json({ success: false, error: 'Server error' });
   }
 }
