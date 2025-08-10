@@ -1,81 +1,74 @@
 export default async function handler(req, res) {
-  // CORS immer setzen (für Form-POSTs aus deiner statischen Seite)
+  // CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
-
-  // Preflight
   if (req.method === 'OPTIONS') {
     res.setHeader('Access-Control-Allow-Methods', 'POST,OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     return res.status(204).end();
   }
-
   if (req.method !== 'POST') {
     return res.status(405).json({ success: false, error: 'Method not allowed' });
   }
 
   try {
     const { name = '', email = '' } = req.body || {};
-
-    // simple E-Mail-Check
     if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
       return res.status(400).json({ success: false, error: 'Invalid email' });
     }
 
-    // --- Gruppe vorbereiten ---
-    // MailerLite erwartet reine Zahl. Alles außer Ziffern weg (zur Sicherheit).
-    let groupsPart = {};
-    if (process.env.MAILERLITE_GROUP_ID) {
-      const cleaned = String(process.env.MAILERLITE_GROUP_ID).trim().replace(/\D/g, '');
-      const gid = Number(cleaned);
-      if (Number.isFinite(gid)) {
-        groupsPart = { groups: [gid] };
-      }
-    }
+    const gidRaw = process.env.MAILERLITE_GROUP_ID;
+    const gid = gidRaw ? Number(String(gidRaw).trim()) : null;
 
-    const payload = {
-      email,
-      fields: { name },
-      ...groupsPart,
-      status: 'active',
-    };
-
-    // ----- DEBUG LOGS (in Vercel > Logs sichtbar) -----
-    console.log('subscribe: payload ->', payload);
-    console.log(
-      'subscribe: envs ->',
-      { hasApiKey: Boolean(process.env.MAILERLITE_API_KEY), groupIdRaw: process.env.MAILERLITE_GROUP_ID }
-    );
-    // ---------------------------------------------------
-
-    const r = await fetch('https://connect.mailerlite.com/api/subscribers', {
+    // 1) Subscriber anlegen (ohne groups)
+    const createResp = await fetch('https://connect.mailerlite.com/api/subscribers', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
         'Authorization': `Bearer ${process.env.MAILERLITE_API_KEY}`,
       },
-      body: JSON.stringify(payload),
+      body: JSON.stringify({
+        email,
+        fields: { name },
+        status: 'active',
+      }),
     });
 
-    const text = await r.text();
-    let ml;
-    try { ml = text ? JSON.parse(text) : null; } catch (_) {}
+    let createText = await createResp.text();
+    let createJson = null;
+    try { createJson = createText ? JSON.parse(createText) : null; } catch {}
 
-    // nochmal debuggen, was MailerLite zurückgibt
-    console.log('subscribe: ML status ->', r.status);
-    console.log('subscribe: ML body ->', text);
+    // Wenn schon vorhanden (Conflict), ist das okay – wir fügen gleich zur Gruppe hinzu
+    if (!createResp.ok && createResp.status !== 409) {
+      const msg = (createJson && (createJson.error?.message || createJson.message)) || createText || 'MailerLite error';
+      return res.status(createResp.status).json({ success: false, error: msg });
+    }
 
-    if (!r.ok) {
-      const msg =
-        (ml && (ml.error?.message || ml.message)) ||
-        text ||
-        'MailerLite error';
-      return res.status(r.status || 422).json({ success: false, error: msg });
+    // 2) Optional: Zur Gruppe hinzufügen, falls gid vorhanden
+    if (Number.isFinite(gid)) {
+      const addResp = await fetch(`https://connect.mailerlite.com/api/groups/${gid}/subscribers`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${process.env.MAILERLITE_API_KEY}`,
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      let addText = await addResp.text();
+      let addJson = null;
+      try { addJson = addText ? JSON.parse(addText) : null; } catch {}
+
+      // 409/422 bedeuten oft „schon Mitglied“ oder „bereits vorhanden“ – das ist okay
+      if (!addResp.ok && ![200, 201, 204, 409, 422].includes(addResp.status)) {
+        const msg = (addJson && (addJson.error?.message || addJson.message)) || addText || 'MailerLite group error';
+        return res.status(addResp.status).json({ success: false, error: msg });
+      }
     }
 
     return res.status(200).json({ success: true });
   } catch (e) {
-    console.error('subscribe: server error ->', e);
     return res.status(500).json({ success: false, error: 'Server error' });
   }
 }
