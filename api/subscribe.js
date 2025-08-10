@@ -1,51 +1,51 @@
 export default async function handler(req, res) {
-  // CORS auf JEDE Antwort anwenden
+  // CORS immer setzen (für Form-POSTs aus deiner statischen Seite)
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  res.setHeader('Access-Control-Allow-Methods', 'POST,OPTIONS');
 
   // Preflight
   if (req.method === 'OPTIONS') {
+    res.setHeader('Access-Control-Allow-Methods', 'POST,OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     return res.status(204).end();
   }
 
   if (req.method !== 'POST') {
-    return res
-      .status(405)
-      .json({ success: false, error: 'Method not allowed' });
+    return res.status(405).json({ success: false, error: 'Method not allowed' });
   }
 
   try {
-    // Falls Vercel/Client den Body als String schickt, sicher parsen
-    let body = req.body;
-    if (typeof body === 'string') {
-      try { body = JSON.parse(body); } catch { body = {}; }
+    const { name = '', email = '' } = req.body || {};
+
+    // simple E-Mail-Check
+    if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+      return res.status(400).json({ success: false, error: 'Invalid email' });
     }
 
-    const rawName = (body?.name ?? '').toString().trim();
-    const rawEmail = (body?.email ?? '').toString().trim().toLowerCase();
-
-    if (!rawEmail || !/^\S+@\S+\.\S+$/.test(rawEmail)) {
-      return res
-        .status(400)
-        .json({ success: false, error: 'Invalid email' });
-    }
-
-    // MAILERLITE_GROUP_ID -> Zahl (nur wenn wirklich valide)
+    // --- Gruppe vorbereiten ---
+    // MailerLite erwartet reine Zahl. Alles außer Ziffern weg (zur Sicherheit).
     let groupsPart = {};
     if (process.env.MAILERLITE_GROUP_ID) {
-      const gid = Number(String(process.env.MAILERLITE_GROUP_ID).trim());
+      const cleaned = String(process.env.MAILERLITE_GROUP_ID).trim().replace(/\D/g, '');
+      const gid = Number(cleaned);
       if (Number.isFinite(gid)) {
         groupsPart = { groups: [gid] };
       }
     }
 
     const payload = {
-      email: rawEmail,
-      fields: { name: rawName },
+      email,
+      fields: { name },
       ...groupsPart,
       status: 'active',
     };
+
+    // ----- DEBUG LOGS (in Vercel > Logs sichtbar) -----
+    console.log('subscribe: payload ->', payload);
+    console.log(
+      'subscribe: envs ->',
+      { hasApiKey: Boolean(process.env.MAILERLITE_API_KEY), groupIdRaw: process.env.MAILERLITE_GROUP_ID }
+    );
+    // ---------------------------------------------------
 
     const r = await fetch('https://connect.mailerlite.com/api/subscribers', {
       method: 'POST',
@@ -58,25 +58,24 @@ export default async function handler(req, res) {
     });
 
     const text = await r.text();
-    let ml = null;
-    try { ml = text ? JSON.parse(text) : null; } catch { /* ignore */ }
+    let ml;
+    try { ml = text ? JSON.parse(text) : null; } catch (_) {}
+
+    // nochmal debuggen, was MailerLite zurückgibt
+    console.log('subscribe: ML status ->', r.status);
+    console.log('subscribe: ML body ->', text);
 
     if (!r.ok) {
-      // Aussagekräftige Fehlermeldung bauen
       const msg =
-        ml?.error?.message ||
-        ml?.message ||
+        (ml && (ml.error?.message || ml.message)) ||
         text ||
         'MailerLite error';
-      return res
-        .status(r.status || 500)
-        .json({ success: false, error: msg });
+      return res.status(r.status || 422).json({ success: false, error: msg });
     }
 
     return res.status(200).json({ success: true });
   } catch (e) {
-    return res
-      .status(500)
-      .json({ success: false, error: 'Server error' });
+    console.error('subscribe: server error ->', e);
+    return res.status(500).json({ success: false, error: 'Server error' });
   }
 }
