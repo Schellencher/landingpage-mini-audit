@@ -1,12 +1,5 @@
 User-agent: *
 Allow: /
 
-# Blockiere unnötige oder doppelte Inhalte
-Disallow: /cgi-bin/
-Disallow: /tmp/
-Disallow: /junk/
-Disallow: /private/
-Disallow: /*?*        # Parameter-URLs ausschließen
-
-# Sitemap für Google & Co.
+# Sitemap
 Sitemap: https://getlaunchedge.com/sitemap.xml
