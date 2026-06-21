@@ -5,49 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>GLE Prompt Studio – Strukturierte Prompts für Content & Marketing</title>
-  <meta name="description" content="GLE Prompt Studio hilft dir, strukturierte Prompts für Social Posts, Ads, Landingpages, Produkttexte, E-Mails, Blogartikel und Kurzvideos schneller vorzubereiten." />
+  <meta
+    name="description"
+    content="GLE Prompt Studio hilft dir, strukturierte Prompts für Social Posts, Ads, Landingpages, Produkttexte, E-Mails, Blogartikel und Kurzvideos schneller vorzubereiten."
+  />
   <link rel="canonical" href="https://getlaunchedge.com/" />
 
-  <style> 
-    .lang-switch {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
-
-    .lang-btn {
-      padding: 7px 10px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      background: rgba(255, 255, 255, 0.04);
-      color: var(--muted);
-      font-weight: 800;
-      font-size: 13px;
-      cursor: pointer;
-    }
-
-    .lang-btn.active {
-      background: var(--green);
-      color: #041008;
-      border-color: var(--green);
-    }
-
-    @media (max-width: 900px) {
-      .lang-switch {
-        margin-left: auto;
-      }
-    }
-    
+  <style>
     :root {
       --bg: #05070b;
-      --bg-soft: #0b0f16;
       --card: #111720;
-      --card-soft: #151d28;
       --text: #f5f7fb;
       --muted: #a8b3c4;
       --green: #22c55e;
       --green-soft: rgba(34, 197, 94, 0.16);
-      --border: rgba(255, 255, 255, 0.10);
+      --border: rgba(255, 255, 255, 0.1);
       --shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
       --radius: 22px;
       --max: 1120px;
@@ -57,12 +29,16 @@
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
       background:
         radial-gradient(circle at top left, rgba(34, 197, 94, 0.15), transparent 32%),
-        radial-gradient(circle at top right, rgba(56, 189, 248, 0.10), transparent 30%),
+        radial-gradient(circle at top right, rgba(56, 189, 248, 0.1), transparent 30%),
         var(--bg);
       color: var(--text);
       line-height: 1.6;
@@ -79,9 +55,9 @@
     }
 
     header {
-      padding: 28px 0;
+      padding: 26px 0;
       border-bottom: 1px solid var(--border);
-      background: rgba(5, 7, 11, 0.72);
+      background: rgba(5, 7, 11, 0.78);
       backdrop-filter: blur(14px);
       position: sticky;
       top: 0;
@@ -92,16 +68,17 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
+      gap: 22px;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
       font-weight: 800;
       letter-spacing: -0.03em;
       font-size: 20px;
+      white-space: nowrap;
     }
 
     .brand-mark {
@@ -120,6 +97,12 @@
       flex-shrink: 0;
     }
 
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
     .nav-links {
       display: flex;
       align-items: center;
@@ -130,6 +113,29 @@
 
     .nav-links a:hover {
       color: var(--text);
+    }
+
+    .lang-switch {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .lang-btn {
+      padding: 7px 10px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--muted);
+      font-weight: 800;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .lang-btn.active {
+      background: var(--green);
+      color: #041008;
+      border-color: var(--green);
     }
 
     .btn {
@@ -152,19 +158,14 @@
       box-shadow: 0 14px 40px rgba(34, 197, 94, 0.28);
     }
 
-    .btn-primary:hover {
+    .btn-primary:hover,
+    .btn-secondary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 18px 52px rgba(34, 197, 94, 0.36);
     }
 
     .btn-secondary {
       background: rgba(255, 255, 255, 0.04);
       color: var(--text);
-    }
-
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.08);
-      transform: translateY(-2px);
     }
 
     .hero {
@@ -181,7 +182,6 @@
     .eyebrow {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
       padding: 8px 12px;
       border: 1px solid rgba(34, 197, 94, 0.34);
       background: var(--green-soft);
@@ -264,7 +264,7 @@
 
     .field {
       background: #141922;
-      border: 1px solid rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.1);
       border-radius: 12px;
       padding: 14px 15px;
       margin-bottom: 12px;
@@ -380,7 +380,7 @@
     }
 
     .price {
-      font-size: 32px;
+      font-size: 28px;
       font-weight: 900;
       letter-spacing: -0.04em;
       margin: 12px 0 8px;
@@ -445,13 +445,6 @@
     }
 
     @media (max-width: 900px) {
-      .hero-grid,
-      .split,
-      .grid-2,
-      .grid-3 {
-        grid-template-columns: 1fr;
-      }
-
       header {
         position: static;
       }
@@ -460,12 +453,23 @@
         align-items: flex-start;
       }
 
+      .nav-right {
+        margin-left: auto;
+      }
+
       .nav-links {
         display: none;
       }
 
       .hero {
         padding: 58px 0 42px;
+      }
+
+      .hero-grid,
+      .split,
+      .grid-2,
+      .grid-3 {
+        grid-template-columns: 1fr;
       }
 
       .btn {
@@ -483,16 +487,18 @@
         <span>GLE Prompt Studio</span>
       </a>
 
-      <nav class="nav-links">
-        <a href="#problem">Problem</a>
-        <a href="#usecases">Use-Cases</a>
-        <a href="#pricing">Pläne</a>
-        <a href="https://studio.getlaunchedge.com">Zur App</a>
-      </nav>
+      <div class="nav-right">
+        <nav class="nav-links">
+          <a href="#problem" data-i18n="nav_problem">Problem</a>
+          <a href="#usecases" data-i18n="nav_usecases">Use-Cases</a>
+          <a href="#pricing" data-i18n="nav_plans">Pläne</a>
+          <a href="https://studio.getlaunchedge.com" data-i18n="nav_app">Zur App</a>
+        </nav>
 
-      <div class="lang-switch" aria-label="Language switcher">
-        <button class="lang-btn" type="button" data-lang-btn="de">DE</button>
-        <button class="lang-btn" type="button" data-lang-btn="en">EN</button>
+        <div class="lang-switch" aria-label="Language switcher">
+          <button class="lang-btn" type="button" data-lang-btn="de">DE</button>
+          <button class="lang-btn" type="button" data-lang-btn="en">EN</button>
+        </div>
       </div>
     </div>
   </header>
@@ -501,26 +507,26 @@
     <section class="hero">
       <div class="wrap hero-grid">
         <div>
-          <div class="eyebrow">Für Solopreneure, Creator & kleine Unternehmen</div>
+          <div class="eyebrow" data-i18n="eyebrow">Für Solopreneure, Creator & kleine Unternehmen</div>
 
-          <h1>Strukturierte Prompts für Content, Marketing und Verkauf.</h1>
+          <h1 data-i18n="hero_title">Strukturierte Prompts für Content, Marketing und Verkauf.</h1>
 
-          <p class="lead">
+          <p class="lead" data-i18n="hero_text">
             GLE Prompt Studio hilft dir, bessere Prompts für Social Posts, Ads,
             Landingpages, Produkttexte, E-Mails, Blogartikel und Kurzvideos vorzubereiten —
             ohne jedes Mal bei null anzufangen.
           </p>
 
           <div class="hero-actions">
-            <a class="btn btn-primary" href="https://studio.getlaunchedge.com">
+            <a class="btn btn-primary" href="https://studio.getlaunchedge.com" data-i18n="hero_cta">
               GLE Prompt Studio starten
             </a>
-            <a class="btn btn-secondary" href="#usecases">
+            <a class="btn btn-secondary" href="#usecases" data-i18n="hero_secondary">
               Use-Cases ansehen
             </a>
           </div>
 
-          <p class="trust">
+          <p class="trust" data-i18n="trust">
             Fokus: Zeit sparen, klare Struktur bekommen und Marketing-Aufgaben schneller vorbereiten.
           </p>
         </div>
@@ -535,11 +541,11 @@
 
             <div class="mock">
               <div class="mock-title"><span>GLE</span> Prompt Studio</div>
-              <div class="field">Use-Case: Landingpage / Ad-Copy</div>
-              <div class="field">Ton: Professionell</div>
-              <div class="field">Sprache: DE</div>
-              <div class="field">Thema / Angebot: Dein Produkt oder deine Idee</div>
-              <div class="output">
+              <div class="field" data-i18n="mock_1">Use-Case: Landingpage / Ad-Copy</div>
+              <div class="field" data-i18n="mock_2">Ton: Professionell</div>
+              <div class="field" data-i18n="mock_3">Sprache: DE</div>
+              <div class="field" data-i18n="mock_4">Thema / Angebot: Dein Produkt oder deine Idee</div>
+              <div class="output" data-i18n="mock_5">
                 Ergebnis: Ein klar strukturierter Master-Prompt, den du direkt weiterverwenden kannst.
               </div>
             </div>
@@ -551,25 +557,25 @@
     <section id="problem">
       <div class="wrap split">
         <div class="section-head">
-          <h2>Gute KI-Ergebnisse entstehen selten durch Zufall.</h2>
-          <p>
+          <h2 data-i18n="problem_title">Gute KI-Ergebnisse entstehen selten durch Zufall.</h2>
+          <p data-i18n="problem_text">
             Viele starten mit einer groben Eingabe, bessern mehrfach nach und verlieren Zeit,
             bevor überhaupt ein brauchbarer Text entsteht.
           </p>
         </div>
 
         <div class="card">
-          <h3>GLE setzt früher an: bei der Struktur.</h3>
-          <p>
+          <h3 data-i18n="problem_card_title">GLE setzt früher an: bei der Struktur.</h3>
+          <p data-i18n="problem_card_text">
             Statt jedes Mal neu zu überlegen, wie du ChatGPT richtig briefst,
             hilft dir GLE dabei, den Startpunkt für deine Aufgabe sauber vorzubereiten.
           </p>
 
           <div class="list">
-            <div class="list-item"><span class="check">✓</span><span>weniger Herumprobieren</span></div>
-            <div class="list-item"><span class="check">✓</span><span>klarere Prompts für konkrete Aufgaben</span></div>
-            <div class="list-item"><span class="check">✓</span><span>bessere Vorbereitung für Content und Marketing</span></div>
-            <div class="list-item"><span class="check">✓</span><span>wiederholbare Struktur statt Zufall</span></div>
+            <div class="list-item"><span class="check">✓</span><span data-i18n="problem_b1">weniger Herumprobieren</span></div>
+            <div class="list-item"><span class="check">✓</span><span data-i18n="problem_b2">klarere Prompts für konkrete Aufgaben</span></div>
+            <div class="list-item"><span class="check">✓</span><span data-i18n="problem_b3">bessere Vorbereitung für Content und Marketing</span></div>
+            <div class="list-item"><span class="check">✓</span><span data-i18n="problem_b4">wiederholbare Struktur statt Zufall</span></div>
           </div>
         </div>
       </div>
@@ -578,8 +584,8 @@
     <section id="usecases">
       <div class="wrap">
         <div class="section-head">
-          <h2>Für die wichtigsten Content- und Marketing-Aufgaben.</h2>
-          <p>
+          <h2 data-i18n="usecases_title">Für die wichtigsten Content- und Marketing-Aufgaben.</h2>
+          <p data-i18n="usecases_text">
             Wähle deinen Use-Case, Ton, Sprache und dein Thema.
             GLE erstellt daraus einen strukturierten Prompt für deinen nächsten Schritt.
           </p>
@@ -588,38 +594,38 @@
         <div class="grid-3">
           <div class="card">
             <div class="icon">S</div>
-            <h3>Social Media Posts</h3>
-            <p>Bereite klare Post-Strukturen für LinkedIn, Facebook, Instagram oder andere Kanäle vor.</p>
+            <h3 data-i18n="uc1_title">Social Media Posts</h3>
+            <p data-i18n="uc1_text">Bereite klare Post-Strukturen für LinkedIn, Facebook, Instagram oder andere Kanäle vor.</p>
           </div>
 
           <div class="card">
             <div class="icon">A</div>
-            <h3>Landingpages & Ads</h3>
-            <p>Erstelle Prompts für bessere Angebotsseiten, Werbetexte und klare Nutzenargumente.</p>
+            <h3 data-i18n="uc2_title">Landingpages & Ads</h3>
+            <p data-i18n="uc2_text">Erstelle Prompts für bessere Angebotsseiten, Werbetexte und klare Nutzenargumente.</p>
           </div>
 
           <div class="card">
             <div class="icon">P</div>
-            <h3>Produkttexte</h3>
-            <p>Beschreibe Produkte strukturierter und bringe Vorteile verständlicher auf den Punkt.</p>
+            <h3 data-i18n="uc3_title">Produkttexte</h3>
+            <p data-i18n="uc3_text">Beschreibe Produkte strukturierter und bringe Vorteile verständlicher auf den Punkt.</p>
           </div>
 
           <div class="card">
             <div class="icon">E</div>
-            <h3>E-Mails</h3>
-            <p>Bereite Prompts für Angebote, Follow-ups, Kundenkommunikation oder Kampagnen vor.</p>
+            <h3 data-i18n="uc4_title">E-Mails</h3>
+            <p data-i18n="uc4_text">Bereite Prompts für Angebote, Follow-ups, Kundenkommunikation oder Kampagnen vor.</p>
           </div>
 
           <div class="card">
             <div class="icon">B</div>
-            <h3>Blogartikel</h3>
-            <p>Strukturiere Themen, Briefings und längere Inhalte mit einem besseren Startpunkt.</p>
+            <h3 data-i18n="uc5_title">Blogartikel</h3>
+            <p data-i18n="uc5_text">Strukturiere Themen, Briefings und längere Inhalte mit einem besseren Startpunkt.</p>
           </div>
 
           <div class="card">
             <div class="icon">V</div>
-            <h3>Kurzvideo-Skripte</h3>
-            <p>Entwickle strukturierte Ideen für Reels, TikTok, Shorts oder kurze Videoformate.</p>
+            <h3 data-i18n="uc6_title">Kurzvideo-Skripte</h3>
+            <p data-i18n="uc6_text">Entwickle strukturierte Ideen für Reels, TikTok, Shorts oder kurze Videoformate.</p>
           </div>
         </div>
       </div>
@@ -629,34 +635,26 @@
       <div class="wrap grid-2">
         <div class="card">
           <div class="icon">✓</div>
-          <h3>Einfacher starten</h3>
-          <p>
-            GLE nimmt dir den schwierigsten Teil ab: den ersten sauberen Aufbau deiner KI-Anfrage.
-          </p>
+          <h3 data-i18n="benefit1_title">Einfacher starten</h3>
+          <p data-i18n="benefit1_text">GLE nimmt dir den schwierigsten Teil ab: den ersten sauberen Aufbau deiner KI-Anfrage.</p>
         </div>
 
         <div class="card">
           <div class="icon">✓</div>
-          <h3>Weniger generische Ergebnisse</h3>
-          <p>
-            Durch klare Use-Cases, Tonalität und Kontext wird deine Eingabe konkreter und verwertbarer.
-          </p>
+          <h3 data-i18n="benefit2_title">Weniger generische Ergebnisse</h3>
+          <p data-i18n="benefit2_text">Durch klare Use-Cases, Tonalität und Kontext wird deine Eingabe konkreter und verwertbarer.</p>
         </div>
 
         <div class="card">
           <div class="icon">✓</div>
-          <h3>Mehr Struktur im Alltag</h3>
-          <p>
-            Wiederkehrende Aufgaben lassen sich schneller vorbereiten, statt jedes Mal neu zu beginnen.
-          </p>
+          <h3 data-i18n="benefit3_title">Mehr Struktur im Alltag</h3>
+          <p data-i18n="benefit3_text">Wiederkehrende Aufgaben lassen sich schneller vorbereiten, statt jedes Mal neu zu beginnen.</p>
         </div>
 
         <div class="card">
           <div class="icon">✓</div>
-          <h3>Technik bleibt im Hintergrund</h3>
-          <p>
-            Kein Modell- oder API-Geschwafel. Entscheidend ist, dass du schneller zu brauchbaren Ergebnissen kommst.
-          </p>
+          <h3 data-i18n="benefit4_title">Technik bleibt im Hintergrund</h3>
+          <p data-i18n="benefit4_text">Kein Modell- oder API-Geschwafel. Entscheidend ist, dass du schneller zu brauchbaren Ergebnissen kommst.</p>
         </div>
       </div>
     </section>
@@ -664,8 +662,8 @@
     <section id="pricing">
       <div class="wrap">
         <div class="section-head">
-          <h2>Einfach starten. Später mitwachsen.</h2>
-          <p>
+          <h2 data-i18n="pricing_title">Einfach starten. Später mitwachsen.</h2>
+          <p data-i18n="pricing_text">
             GLE Prompt Studio wird Schritt für Schritt erweitert.
             Der Fokus bleibt auf verständlicher Nutzung, klaren Workflows und fairen Kontingenten.
           </p>
@@ -673,40 +671,40 @@
 
         <div class="grid-3">
           <div class="card pricing">
-            <h3>Start</h3>
-            <div class="price">Free</div>
-            <p>Zum Ausprobieren und für erste strukturierte Prompts.</p>
+            <h3 data-i18n="plan_start">Start</h3>
+            <div class="price" data-i18n="plan_free">Free</div>
+            <p data-i18n="plan_start_text">Zum Ausprobieren und für erste strukturierte Prompts.</p>
             <div class="list">
-              <div class="list-item"><span class="check">✓</span><span>Basis-Nutzung</span></div>
-              <div class="list-item"><span class="check">✓</span><span>begrenztes Monatskontingent</span></div>
-              <div class="list-item"><span class="check">✓</span><span>ideal zum Testen</span></div>
+              <div class="list-item"><span class="check">✓</span><span data-i18n="plan_start_b1">Basis-Nutzung</span></div>
+              <div class="list-item"><span class="check">✓</span><span data-i18n="plan_start_b2">begrenztes Monatskontingent</span></div>
+              <div class="list-item"><span class="check">✓</span><span data-i18n="plan_start_b3">ideal zum Testen</span></div>
             </div>
           </div>
 
           <div class="card pricing">
-            <h3>Pro</h3>
-            <div class="price">Für produktive Nutzung</div>
-            <p>Mehr Kontingent, mehr Komfort und stärkere Nutzung im Alltag.</p>
+            <h3 data-i18n="plan_pro">Pro</h3>
+            <div class="price" data-i18n="plan_pro_price">Für produktive Nutzung</div>
+            <p data-i18n="plan_pro_text">Mehr Kontingent, mehr Komfort und stärkere Nutzung im Alltag.</p>
             <div class="list">
-              <div class="list-item"><span class="check">✓</span><span>höheres Nutzungskontingent</span></div>
-              <div class="list-item"><span class="check">✓</span><span>PRO-Funktionen</span></div>
-              <div class="list-item"><span class="check">✓</span><span>optional mehr Kontrolle für Power-User</span></div>
+              <div class="list-item"><span class="check">✓</span><span data-i18n="plan_pro_b1">höheres Nutzungskontingent</span></div>
+              <div class="list-item"><span class="check">✓</span><span data-i18n="plan_pro_b2">PRO-Funktionen</span></div>
+              <div class="list-item"><span class="check">✓</span><span data-i18n="plan_pro_b3">optional mehr Kontrolle für Power-User</span></div>
             </div>
           </div>
 
           <div class="card pricing">
-            <h3>Business</h3>
-            <div class="price">Geplant</div>
-            <p>Für erweiterte Workflows, Teams und spätere Analysefunktionen.</p>
+            <h3 data-i18n="plan_business">Business</h3>
+            <div class="price" data-i18n="plan_business_price">Geplant</div>
+            <p data-i18n="plan_business_text">Für erweiterte Workflows, Teams und spätere Analysefunktionen.</p>
             <div class="list">
-              <div class="list-item"><span class="check">✓</span><span>größere Kontingente</span></div>
-              <div class="list-item"><span class="check">✓</span><span>Workflow- und Analysefunktionen</span></div>
-              <div class="list-item"><span class="check">✓</span><span>for wachsende Anforderungen</span></div>
+              <div class="list-item"><span class="check">✓</span><span data-i18n="plan_business_b1">größere Kontingente</span></div>
+              <div class="list-item"><span class="check">✓</span><span data-i18n="plan_business_b2">Workflow- und Analysefunktionen</span></div>
+              <div class="list-item"><span class="check">✓</span><span data-i18n="plan_business_b3">für wachsende Anforderungen</span></div>
             </div>
           </div>
         </div>
 
-        <p class="small" style="margin-top:18px;">
+        <p class="small" style="margin-top:18px;" data-i18n="pricing_note">
           Hinweis: Aufwendigere Funktionen wie Analyse- oder Workflow-Module können später mehr vom monatlichen Nutzungskontingent verbrauchen.
         </p>
       </div>
@@ -715,15 +713,13 @@
     <section class="cta">
       <div class="wrap">
         <div class="cta-box">
-          <h2>Starte mit einem besseren Prompt-Aufbau.</h2>
-          <p>
+          <h2 data-i18n="cta_title">Starte mit einem besseren Prompt-Aufbau.</h2>
+          <p data-i18n="cta_text">
             Nutze GLE Prompt Studio, um deine nächsten Social Posts, Ads, Landingpages,
             Produkttexte, E-Mails, Blogartikel oder Kurzvideo-Ideen klarer vorzubereiten.
           </p>
 
-          <a class="btn btn-primary" href="https://studio.getlaunchedge.com">
-            Zur App
-          </a>
+          <a class="btn btn-primary" href="https://studio.getlaunchedge.com" data-i18n="cta_button">Zur App</a>
         </div>
       </div>
     </section>
@@ -733,11 +729,227 @@
     <div class="wrap footer-row">
       <div>© 2026 GetLaunchEdge / GLE Prompt Studio</div>
       <div class="footer-links">
-        <a href="https://studio.getlaunchedge.com/impressum">Impressum</a>
-        <a href="https://studio.getlaunchedge.com/datenschutz">Datenschutz</a>
-        <a href="https://studio.getlaunchedge.com/support">Support</a>
+        <a href="https://studio.getlaunchedge.com/impressum" data-i18n="footer_legal">Impressum</a>
+        <a href="https://studio.getlaunchedge.com/datenschutz" data-i18n="footer_privacy">Datenschutz</a>
+        <a href="https://studio.getlaunchedge.com/support" data-i18n="footer_support">Support</a>
       </div>
     </div>
   </footer>
+
+  <script>
+    const i18n = {
+      de: {
+        pageTitle: "GLE Prompt Studio – Strukturierte Prompts für Content & Marketing",
+        pageDescription: "GLE Prompt Studio hilft dir, strukturierte Prompts für Social Posts, Ads, Landingpages, Produkttexte, E-Mails, Blogartikel und Kurzvideos schneller vorzubereiten.",
+
+        nav_problem: "Problem",
+        nav_usecases: "Use-Cases",
+        nav_plans: "Pläne",
+        nav_app: "Zur App",
+
+        eyebrow: "Für Solopreneure, Creator & kleine Unternehmen",
+        hero_title: "Strukturierte Prompts für Content, Marketing und Verkauf.",
+        hero_text: "GLE Prompt Studio hilft dir, bessere Prompts für Social Posts, Ads, Landingpages, Produkttexte, E-Mails, Blogartikel und Kurzvideos vorzubereiten — ohne jedes Mal bei null anzufangen.",
+        hero_cta: "GLE Prompt Studio starten",
+        hero_secondary: "Use-Cases ansehen",
+        trust: "Fokus: Zeit sparen, klare Struktur bekommen und Marketing-Aufgaben schneller vorbereiten.",
+
+        mock_1: "Use-Case: Landingpage / Ad-Copy",
+        mock_2: "Ton: Professionell",
+        mock_3: "Sprache: DE",
+        mock_4: "Thema / Angebot: Dein Produkt oder deine Idee",
+        mock_5: "Ergebnis: Ein klar strukturierter Master-Prompt, den du direkt weiterverwenden kannst.",
+
+        problem_title: "Gute KI-Ergebnisse entstehen selten durch Zufall.",
+        problem_text: "Viele starten mit einer groben Eingabe, bessern mehrfach nach und verlieren Zeit, bevor überhaupt ein brauchbarer Text entsteht.",
+        problem_card_title: "GLE setzt früher an: bei der Struktur.",
+        problem_card_text: "Statt jedes Mal neu zu überlegen, wie du ChatGPT richtig briefst, hilft dir GLE dabei, den Startpunkt für deine Aufgabe sauber vorzubereiten.",
+        problem_b1: "weniger Herumprobieren",
+        problem_b2: "klarere Prompts für konkrete Aufgaben",
+        problem_b3: "bessere Vorbereitung für Content und Marketing",
+        problem_b4: "wiederholbare Struktur statt Zufall",
+
+        usecases_title: "Für die wichtigsten Content- und Marketing-Aufgaben.",
+        usecases_text: "Wähle deinen Use-Case, Ton, Sprache und dein Thema. GLE erstellt daraus einen strukturierten Prompt für deinen nächsten Schritt.",
+        uc1_title: "Social Media Posts",
+        uc1_text: "Bereite klare Post-Strukturen für LinkedIn, Facebook, Instagram oder andere Kanäle vor.",
+        uc2_title: "Landingpages & Ads",
+        uc2_text: "Erstelle Prompts für bessere Angebotsseiten, Werbetexte und klare Nutzenargumente.",
+        uc3_title: "Produkttexte",
+        uc3_text: "Beschreibe Produkte strukturierter und bringe Vorteile verständlicher auf den Punkt.",
+        uc4_title: "E-Mails",
+        uc4_text: "Bereite Prompts für Angebote, Follow-ups, Kundenkommunikation oder Kampagnen vor.",
+        uc5_title: "Blogartikel",
+        uc5_text: "Strukturiere Themen, Briefings und längere Inhalte mit einem besseren Startpunkt.",
+        uc6_title: "Kurzvideo-Skripte",
+        uc6_text: "Entwickle strukturierte Ideen für Reels, TikTok, Shorts oder kurze Videoformate.",
+
+        benefit1_title: "Einfacher starten",
+        benefit1_text: "GLE nimmt dir den schwierigsten Teil ab: den ersten sauberen Aufbau deiner KI-Anfrage.",
+        benefit2_title: "Weniger generische Ergebnisse",
+        benefit2_text: "Durch klare Use-Cases, Tonalität und Kontext wird deine Eingabe konkreter und verwertbarer.",
+        benefit3_title: "Mehr Struktur im Alltag",
+        benefit3_text: "Wiederkehrende Aufgaben lassen sich schneller vorbereiten, statt jedes Mal neu zu beginnen.",
+        benefit4_title: "Technik bleibt im Hintergrund",
+        benefit4_text: "Kein Modell- oder API-Geschwafel. Entscheidend ist, dass du schneller zu brauchbaren Ergebnissen kommst.",
+
+        pricing_title: "Einfach starten. Später mitwachsen.",
+        pricing_text: "GLE Prompt Studio wird Schritt für Schritt erweitert. Der Fokus bleibt auf verständlicher Nutzung, klaren Workflows und fairen Kontingenten.",
+        plan_start: "Start",
+        plan_free: "Free",
+        plan_start_text: "Zum Ausprobieren und für erste strukturierte Prompts.",
+        plan_start_b1: "Basis-Nutzung",
+        plan_start_b2: "begrenztes Monatskontingent",
+        plan_start_b3: "ideal zum Testen",
+        plan_pro: "Pro",
+        plan_pro_price: "Für produktive Nutzung",
+        plan_pro_text: "Mehr Kontingent, mehr Komfort und stärkere Nutzung im Alltag.",
+        plan_pro_b1: "höheres Nutzungskontingent",
+        plan_pro_b2: "PRO-Funktionen",
+        plan_pro_b3: "optional mehr Kontrolle für Power-User",
+        plan_business: "Business",
+        plan_business_price: "Geplant",
+        plan_business_text: "Für erweiterte Workflows, Teams und spätere Analysefunktionen.",
+        plan_business_b1: "größere Kontingente",
+        plan_business_b2: "Workflow- und Analysefunktionen",
+        plan_business_b3: "für wachsende Anforderungen",
+        pricing_note: "Hinweis: Aufwendigere Funktionen wie Analyse- oder Workflow-Module können später mehr vom monatlichen Nutzungskontingent verbrauchen.",
+
+        cta_title: "Starte mit einem besseren Prompt-Aufbau.",
+        cta_text: "Nutze GLE Prompt Studio, um deine nächsten Social Posts, Ads, Landingpages, Produkttexte, E-Mails, Blogartikel oder Kurzvideo-Ideen klarer vorzubereiten.",
+        cta_button: "Zur App",
+
+        footer_legal: "Impressum",
+        footer_privacy: "Datenschutz",
+        footer_support: "Support"
+      },
+
+      en: {
+        pageTitle: "GLE Prompt Studio – Structured prompts for content & marketing",
+        pageDescription: "GLE Prompt Studio helps you prepare structured prompts for social posts, ads, landing pages, product descriptions, emails, blog articles and short videos faster.",
+
+        nav_problem: "Problem",
+        nav_usecases: "Use Cases",
+        nav_plans: "Plans",
+        nav_app: "Open App",
+
+        eyebrow: "For solopreneurs, creators & small businesses",
+        hero_title: "Structured prompts for content, marketing and sales.",
+        hero_text: "GLE Prompt Studio helps you prepare better prompts for social posts, ads, landing pages, product descriptions, emails, blog articles and short videos — without starting from scratch every time.",
+        hero_cta: "Start GLE Prompt Studio",
+        hero_secondary: "View use cases",
+        trust: "Focus: save time, get clear structure and prepare marketing tasks faster.",
+
+        mock_1: "Use case: Landing page / ad copy",
+        mock_2: "Tone: Professional",
+        mock_3: "Language: EN",
+        mock_4: "Topic / offer: your product or idea",
+        mock_5: "Result: a clearly structured master prompt you can use right away.",
+
+        problem_title: "Good AI results rarely happen by accident.",
+        problem_text: "Many users start with a rough input, revise it several times and lose time before they get a usable result.",
+        problem_card_title: "GLE starts earlier: with structure.",
+        problem_card_text: "Instead of figuring out how to brief ChatGPT from scratch every time, GLE helps you prepare a clear starting point for your task.",
+        problem_b1: "less trial and error",
+        problem_b2: "clearer prompts for specific tasks",
+        problem_b3: "better preparation for content and marketing",
+        problem_b4: "repeatable structure instead of guesswork",
+
+        usecases_title: "For the most important content and marketing tasks.",
+        usecases_text: "Choose your use case, tone, language and topic. GLE turns it into a structured prompt for your next step.",
+        uc1_title: "Social media posts",
+        uc1_text: "Prepare clear post structures for LinkedIn, Facebook, Instagram or other channels.",
+        uc2_title: "Landing pages & ads",
+        uc2_text: "Create prompts for better offer pages, ad copy and clear value arguments.",
+        uc3_title: "Product copy",
+        uc3_text: "Describe products more clearly and explain benefits in a more structured way.",
+        uc4_title: "Emails",
+        uc4_text: "Prepare prompts for offers, follow-ups, customer communication or campaigns.",
+        uc5_title: "Blog articles",
+        uc5_text: "Structure topics, briefs and longer content with a better starting point.",
+        uc6_title: "Short video scripts",
+        uc6_text: "Develop structured ideas for Reels, TikTok, Shorts or short video formats.",
+
+        benefit1_title: "Start easier",
+        benefit1_text: "GLE helps with the hardest part: creating a clean first structure for your AI request.",
+        benefit2_title: "Less generic results",
+        benefit2_text: "Clear use cases, tone and context make your input more specific and useful.",
+        benefit3_title: "More structure in daily work",
+        benefit3_text: "Recurring tasks can be prepared faster instead of starting from scratch every time.",
+        benefit4_title: "Technology stays in the background",
+        benefit4_text: "No model or API talk. What matters is getting to useful results faster.",
+
+        pricing_title: "Start simple. Grow later.",
+        pricing_text: "GLE Prompt Studio will be expanded step by step. The focus stays on simple usage, clear workflows and fair usage allowances.",
+        plan_start: "Start",
+        plan_free: "Free",
+        plan_start_text: "For testing and first structured prompts.",
+        plan_start_b1: "Basic usage",
+        plan_start_b2: "limited monthly allowance",
+        plan_start_b3: "ideal for testing",
+        plan_pro: "Pro",
+        plan_pro_price: "For productive use",
+        plan_pro_text: "More allowance, more comfort and stronger daily usage.",
+        plan_pro_b1: "higher usage allowance",
+        plan_pro_b2: "Pro features",
+        plan_pro_b3: "optional extra control for power users",
+        plan_business: "Business",
+        plan_business_price: "Planned",
+        plan_business_text: "For advanced workflows, teams and future analysis features.",
+        plan_business_b1: "larger allowances",
+        plan_business_b2: "workflow and analysis features",
+        plan_business_b3: "for growing needs",
+        pricing_note: "Note: More advanced functions such as analysis or workflow modules may later use more of the monthly usage allowance.",
+
+        cta_title: "Start with a better prompt structure.",
+        cta_text: "Use GLE Prompt Studio to prepare your next social posts, ads, landing pages, product descriptions, emails, blog articles or short video ideas more clearly.",
+        cta_button: "Open App",
+
+        footer_legal: "Legal notice",
+        footer_privacy: "Privacy policy",
+        footer_support: "Support"
+      }
+    };
+
+    function setLanguage(lang) {
+      const selected = lang === "en" ? "en" : "de";
+      const dictionary = i18n[selected];
+
+      document.documentElement.lang = selected;
+      document.title = dictionary.pageTitle;
+
+      const metaDescription = document.querySelector('meta[name="description"]');
+      if (metaDescription) {
+        metaDescription.setAttribute("content", dictionary.pageDescription);
+      }
+
+      document.querySelectorAll("[data-i18n]").forEach((element) => {
+        const key = element.getAttribute("data-i18n");
+        if (dictionary[key]) {
+          element.textContent = dictionary[key];
+        }
+      });
+
+      document.querySelectorAll("[data-lang-btn]").forEach((button) => {
+        button.classList.toggle("active", button.getAttribute("data-lang-btn") === selected);
+      });
+
+      localStorage.setItem("gle-language", selected);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const savedLanguage = localStorage.getItem("gle-language");
+      const browserLanguage = (navigator.language || "de").toLowerCase();
+      const startLanguage = savedLanguage || (browserLanguage.startsWith("en") ? "en" : "de");
+
+      document.querySelectorAll("[data-lang-btn]").forEach((button) => {
+        button.addEventListener("click", () => {
+          setLanguage(button.getAttribute("data-lang-btn"));
+        });
+      });
+
+      setLanguage(startLanguage);
+    });
+  </script>
 </body>
 </html>
