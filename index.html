@@ -8,6 +8,35 @@
   <meta name="description" content="GLE Prompt Studio hilft dir, strukturierte Prompts für Social Posts, Ads, Landingpages, Produkttexte, E-Mails, Blogartikel und Kurzvideos schneller vorzubereiten." />
   <link rel="canonical" href="https://getlaunchedge.com/" />
 
+  .lang-switch {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.lang-btn {
+  padding: 7px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--muted);
+  font-weight: 800;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.lang-btn.active {
+  background: var(--green);
+  color: #041008;
+  border-color: var(--green);
+}
+
+@media (max-width: 900px) {
+  .lang-switch {
+    margin-left: auto;
+  }
+}
+
   <style>
     :root {
       --bg: #05070b;
