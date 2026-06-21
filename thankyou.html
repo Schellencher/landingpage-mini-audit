@@ -1,58 +1,275 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Danke für deine Anfrage!</title>
-  <meta name="description" content="Vielen Dank für deine Anfrage zum kostenlosen Mini-Audit. Wir melden uns in Kürze mit weiteren Informationen.">
-  <link rel="canonical" href="https://getlaunchedge.com/thankyou.html">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Danke – GLE Prompt Studio</title>
+  <meta
+    name="description"
+    content="Danke. Zurück zur GLE Prompt Studio Startseite oder direkt zur App."
+  />
+  <link rel="canonical" href="https://getlaunchedge.com/thankyou.html" />
+
   <style>
+    :root {
+      --bg: #05070b;
+      --text: #f5f7fb;
+      --muted: #a8b3c4;
+      --green: #22c55e;
+      --green-soft: rgba(34, 197, 94, 0.16);
+      --border: rgba(255, 255, 255, 0.1);
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f0f2f5;
       margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(34, 197, 94, 0.16), transparent 34%),
+        radial-gradient(circle at bottom right, rgba(56, 189, 248, 0.10), transparent 32%),
+        var(--bg);
+      color: var(--text);
+      display: grid;
+      place-items: center;
+      padding: 28px;
+      line-height: 1.6;
+    }
+
+    .card {
+      width: min(720px, 100%);
+      background: rgba(255, 255, 255, 0.045);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 42px 26px;
+      box-shadow: var(--shadow);
       text-align: center;
     }
-    .container {
-      background-color: #fff;
-      padding: 40px 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-      max-width: 400px;
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      font-size: 20px;
     }
+
+    .brand-mark {
+      min-width: 48px;
+      height: 40px;
+      padding: 0 8px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      display: grid;
+      place-items: center;
+      color: #041008;
+      font-weight: 900;
+      font-size: 14px;
+      box-shadow: 0 0 28px rgba(34, 197, 94, 0.35);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(34, 197, 94, 0.34);
+      background: var(--green-soft);
+      color: #86efac;
+      font-size: 14px;
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
+
     h1 {
-      color: #4CAF50;
+      font-size: clamp(34px, 6vw, 58px);
+      line-height: 1.02;
+      letter-spacing: -0.06em;
+      margin: 0 0 18px;
     }
+
     p {
-      margin: 15px 0;
-      color: #333;
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 580px;
+      margin: 0 auto 28px;
     }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
     a {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 10px 20px;
-      background-color: #4CAF50;
-      color: white;
+      color: inherit;
       text-decoration: none;
-      border-radius: 5px;
-      transition: 0.3s;
     }
-    a:hover {
-      background-color: #45a049;
+
+    .btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      padding: 14px 20px;
+      border-radius: 14px;
+      font-weight: 900;
+      border: 1px solid var(--border);
+      min-width: 190px;
+    }
+
+    .btn-primary {
+      background: var(--green);
+      color: #041008;
+      border-color: var(--green);
+      box-shadow: 0 14px 40px rgba(34, 197, 94, 0.28);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+    }
+
+    .lang-switch {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      display: flex;
+      gap: 8px;
+    }
+
+    .lang-btn {
+      padding: 7px 10px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--muted);
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .lang-btn.active {
+      background: var(--green);
+      color: #041008;
+      border-color: var(--green);
+    }
+
+    @media (max-width: 560px) {
+      .card {
+        padding: 36px 20px;
+      }
+
+      .actions {
+        display: grid;
+      }
+
+      .btn {
+        width: 100%;
+      }
     }
   </style>
 </head>
+
 <body>
-  <div class="container">
-    <h1>🎉 Vielen Dank!</h1>
-    <p>Deine Anfrage für das kostenlose Mini-Audit ist erfolgreich eingegangen.</p>
-    <p>Ich melde mich in Kürze bei dir mit weiteren Infos!</p>
-    <a href="index.html">⬅ Zurück zur Startseite</a>
+  <div class="lang-switch" aria-label="Language switcher">
+    <button class="lang-btn" type="button" data-lang-btn="de">DE</button>
+    <button class="lang-btn" type="button" data-lang-btn="en">EN</button>
   </div>
+
+  <main class="card">
+    <div class="brand">
+      <span class="brand-mark">GLE</span>
+      <span>GLE Prompt Studio</span>
+    </div>
+
+    <div class="eyebrow" data-i18n="eyebrow">Danke</div>
+
+    <h1 data-i18n="title">Weiter zu GLE Prompt Studio.</h1>
+
+    <p data-i18n="text">
+      Diese Seite gehört jetzt zu GetLaunchEdge / GLE Prompt Studio.
+      Du kannst zurück zur Startseite gehen oder direkt die App öffnen.
+    </p>
+
+    <div class="actions">
+      <a class="btn btn-primary" href="https://studio.getlaunchedge.com" data-i18n="app">
+        Zur App
+      </a>
+
+      <a class="btn btn-secondary" href="https://getlaunchedge.com" data-i18n="home">
+        Zur Startseite
+      </a>
+    </div>
+  </main>
+
+  <script>
+    const i18n = {
+      de: {
+        pageTitle: "Danke – GLE Prompt Studio",
+        pageDescription: "Danke. Zurück zur GLE Prompt Studio Startseite oder direkt zur App.",
+        eyebrow: "Danke",
+        title: "Weiter zu GLE Prompt Studio.",
+        text: "Diese Seite gehört jetzt zu GetLaunchEdge / GLE Prompt Studio. Du kannst zurück zur Startseite gehen oder direkt die App öffnen.",
+        app: "Zur App",
+        home: "Zur Startseite"
+      },
+      en: {
+        pageTitle: "Thank you – GLE Prompt Studio",
+        pageDescription: "Thank you. Go back to the GLE Prompt Studio homepage or open the app directly.",
+        eyebrow: "Thank you",
+        title: "Continue to GLE Prompt Studio.",
+        text: "This page now belongs to GetLaunchEdge / GLE Prompt Studio. You can go back to the homepage or open the app directly.",
+        app: "Open App",
+        home: "Homepage"
+      }
+    };
+
+    function setLanguage(lang) {
+      const selected = lang === "en" ? "en" : "de";
+      const dictionary = i18n[selected];
+
+      document.documentElement.lang = selected;
+      document.title = dictionary.pageTitle;
+
+      const metaDescription = document.querySelector('meta[name="description"]');
+      if (metaDescription) {
+        metaDescription.setAttribute("content", dictionary.pageDescription);
+      }
+
+      document.querySelectorAll("[data-i18n]").forEach((element) => {
+        const key = element.getAttribute("data-i18n");
+        if (dictionary[key]) {
+          element.textContent = dictionary[key];
+        }
+      });
+
+      document.querySelectorAll("[data-lang-btn]").forEach((button) => {
+        button.classList.toggle("active", button.getAttribute("data-lang-btn") === selected);
+      });
+
+      localStorage.setItem("gle-language", selected);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const savedLanguage = localStorage.getItem("gle-language");
+      const browserLanguage = (navigator.language || "de").toLowerCase();
+      const startLanguage = savedLanguage || (browserLanguage.startsWith("en") ? "en" : "de");
+
+      document.querySelectorAll("[data-lang-btn]").forEach((button) => {
+        button.addEventListener("click", () => {
+          setLanguage(button.getAttribute("data-lang-btn"));
+        });
+      });
+
+      setLanguage(startLanguage);
+    });
+  </script>
 </body>
 </html>
