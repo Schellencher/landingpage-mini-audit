@@ -3,79 +3,703 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mini-Audit – Prozesse automatisieren</title>
-  <meta name="description" content="Hol dir dein kostenloses Mini-Audit, automatisiere Prozesse und spare jede Woche Stunden an Arbeit!" />
+
+  <title>GLE Prompt Studio – Strukturierte Prompts für Content & Marketing</title>
+  <meta name="description" content="GLE Prompt Studio hilft dir, strukturierte Prompts für Social Posts, Ads, Landingpages, Produkttexte, E-Mails, Blogartikel und Kurzvideos schneller vorzubereiten." />
   <link rel="canonical" href="https://getlaunchedge.com/" />
+
   <style>
+    :root {
+      --bg: #05070b;
+      --bg-soft: #0b0f16;
+      --card: #111720;
+      --card-soft: #151d28;
+      --text: #f5f7fb;
+      --muted: #a8b3c4;
+      --green: #22c55e;
+      --green-soft: rgba(34, 197, 94, 0.16);
+      --border: rgba(255, 255, 255, 0.10);
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+      --radius: 22px;
+      --max: 1120px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f0f2f5;
       margin: 0;
-      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(34, 197, 94, 0.15), transparent 32%),
+        radial-gradient(circle at top right, rgba(56, 189, 248, 0.10), transparent 30%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.6;
     }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
     header {
-      background-color: #4CAF50;
-      color: white;
-      padding: 20px;
-      text-align: center;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+      background: rgba(5, 7, 11, 0.72);
+      backdrop-filter: blur(14px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
-    section {
-      background-color: #fff;
-      padding: 40px 20px;
-      border-radius: 10px;
-      max-width: 500px;
-      margin: 40px auto;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      text-align: center;
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
     }
-    input, button {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 16px;
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      font-size: 20px;
     }
-    button {
-      background-color: #4CAF50;
-      color: white;
-      border: none;
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      display: grid;
+      place-items: center;
+      color: #041008;
+      font-weight: 900;
+      box-shadow: 0 0 28px rgba(34, 197, 94, 0.35);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 20px;
+      border-radius: 14px;
+      font-weight: 800;
+      border: 1px solid var(--border);
+      transition: 0.2s ease;
       cursor: pointer;
     }
-    button:hover {
-      background-color: #45a049;
+
+    .btn-primary {
+      background: var(--green);
+      color: #041008;
+      border-color: var(--green);
+      box-shadow: 0 14px 40px rgba(34, 197, 94, 0.28);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 52px rgba(34, 197, 94, 0.36);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .hero {
+      padding: 88px 0 64px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 46px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border: 1px solid rgba(34, 197, 94, 0.34);
+      background: var(--green-soft);
+      color: #86efac;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 22px;
+    }
+
+    h1 {
+      font-size: clamp(42px, 6vw, 74px);
+      line-height: 0.98;
+      letter-spacing: -0.07em;
+      margin: 0 0 24px;
+    }
+
+    .lead {
+      font-size: clamp(18px, 2.1vw, 23px);
+      color: var(--muted);
+      max-width: 720px;
+      margin: 0 0 34px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .trust {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .app-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.035));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .app-window {
+      background: #090d13;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
+    .window-top {
+      display: flex;
+      gap: 7px;
+      padding: 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      background: #0d121a;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+    }
+
+    .mock {
+      padding: 22px;
+    }
+
+    .mock-title {
+      font-weight: 900;
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+
+    .mock-title span {
+      color: var(--green);
+    }
+
+    .field {
+      background: #141922;
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 12px;
+      padding: 14px 15px;
+      margin-bottom: 12px;
+      color: #d9e2ef;
+      font-size: 14px;
+    }
+
+    .output {
+      margin-top: 18px;
+      padding: 16px;
+      background: rgba(34, 197, 94, 0.08);
+      border: 1px solid rgba(34, 197, 94, 0.24);
+      border-radius: 14px;
+      color: #c8f7d8;
+      font-size: 14px;
+    }
+
+    section {
+      padding: 72px 0;
+    }
+
+    .section-head {
+      max-width: 760px;
+      margin-bottom: 34px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(30px, 4vw, 48px);
+      line-height: 1.08;
+      letter-spacing: -0.05em;
+      margin: 0 0 16px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      font-size: 18px;
+      margin: 0;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.045);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 26px;
+      box-shadow: 0 14px 50px rgba(0,0,0,0.22);
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 21px;
+      letter-spacing: -0.02em;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: var(--green-soft);
+      border: 1px solid rgba(34, 197, 94, 0.26);
+      display: grid;
+      place-items: center;
+      margin-bottom: 18px;
+      color: #86efac;
+      font-weight: 900;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .list {
+      display: grid;
+      gap: 13px;
+      margin-top: 18px;
+    }
+
+    .list-item {
+      display: flex;
+      gap: 12px;
+      color: var(--muted);
+      align-items: flex-start;
+    }
+
+    .check {
+      color: var(--green);
+      font-weight: 900;
+      flex: 0 0 auto;
+    }
+
+    .pricing {
+      background: linear-gradient(180deg, rgba(34, 197, 94, 0.08), rgba(255,255,255,0.02));
+      border: 1px solid rgba(34, 197, 94, 0.18);
+    }
+
+    .price {
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      margin: 12px 0 8px;
+    }
+
+    .small {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .cta {
+      text-align: center;
+      padding: 84px 0;
+    }
+
+    .cta-box {
+      background:
+        radial-gradient(circle at top, rgba(34,197,94,0.16), transparent 42%),
+        rgba(255,255,255,0.045);
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      padding: 46px 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .cta h2 {
+      font-size: clamp(32px, 5vw, 54px);
+      line-height: 1.04;
+      letter-spacing: -0.06em;
+      margin: 0 0 16px;
+    }
+
+    .cta p {
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 720px;
+      margin: 0 auto 28px;
+    }
+
+    footer {
+      padding: 34px 0;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .split,
+      .grid-2,
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+
+      header {
+        position: static;
+      }
+
+      .nav {
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding: 58px 0 42px;
+      }
+
+      .btn {
+        width: 100%;
+      }
     }
   </style>
 </head>
+
 <body>
   <header>
-    <h1>🚀 Hol dir dein kostenloses Mini-Audit!</h1>
-    <p>Automatisiere Prozesse und spare jede Woche Stunden!</p>
+    <div class="wrap nav">
+      <a class="brand" href="/">
+        <span class="brand-mark">GLE</span>
+        <span>GLE Prompt Studio</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#problem">Problem</a>
+        <a href="#usecases">Use-Cases</a>
+        <a href="#pricing">Pläne</a>
+        <a href="https://studio.getlaunchedge.com">Zur App</a>
+      </nav>
+    </div>
   </header>
-  <section>
-    <form id="auditForm">
-      <input type="text" name="name" placeholder="Dein Name" required />
-      <input type="email" name="email" placeholder="Deine E-Mail" required />
-      <button type="submit">Absenden</button>
-    </form>
-    <p id="statusMessage"></p>
-  </section>
-  <script>
-    document.getElementById('auditForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const name = e.target.name.value;
-      const email = e.target.email.value;
 
-      const response = await fetch('/api/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email }),
-      });
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="eyebrow">Für Solopreneure, Creator & kleine Unternehmen</div>
 
-      const data = await response.json();
-      document.getElementById('statusMessage').textContent =
-        data.success ? 'Danke! Du bist jetzt eingetragen.' : 'Fehler: ' + (data.error || 'Unbekannt');
-    });
-  </script>
+          <h1>Strukturierte Prompts für Content, Marketing und Verkauf.</h1>
+
+          <p class="lead">
+            GLE Prompt Studio hilft dir, bessere Prompts für Social Posts, Ads,
+            Landingpages, Produkttexte, E-Mails, Blogartikel und Kurzvideos vorzubereiten —
+            ohne jedes Mal bei null anzufangen.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="https://studio.getlaunchedge.com">
+              GLE Prompt Studio starten
+            </a>
+            <a class="btn btn-secondary" href="#usecases">
+              Use-Cases ansehen
+            </a>
+          </div>
+
+          <p class="trust">
+            Fokus: Zeit sparen, klare Struktur bekommen und Marketing-Aufgaben schneller vorbereiten.
+          </p>
+        </div>
+
+        <div class="app-card">
+          <div class="app-window">
+            <div class="window-top">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+
+            <div class="mock">
+              <div class="mock-title"><span>GLE</span> Prompt Studio</div>
+              <div class="field">Use-Case: Landingpage / Ad-Copy</div>
+              <div class="field">Ton: Professionell</div>
+              <div class="field">Sprache: DE</div>
+              <div class="field">Thema / Angebot: Dein Produkt oder deine Idee</div>
+              <div class="output">
+                Ergebnis: Ein klar strukturierter Master-Prompt, den du direkt weiterverwenden kannst.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="problem">
+      <div class="wrap split">
+        <div class="section-head">
+          <h2>Gute KI-Ergebnisse entstehen selten durch Zufall.</h2>
+          <p>
+            Viele starten mit einer groben Eingabe, bessern mehrfach nach und verlieren Zeit,
+            bevor überhaupt ein brauchbarer Text entsteht.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>GLE setzt früher an: bei der Struktur.</h3>
+          <p>
+            Statt jedes Mal neu zu überlegen, wie du ChatGPT richtig briefst,
+            hilft dir GLE dabei, den Startpunkt für deine Aufgabe sauber vorzubereiten.
+          </p>
+
+          <div class="list">
+            <div class="list-item"><span class="check">✓</span><span>weniger Herumprobieren</span></div>
+            <div class="list-item"><span class="check">✓</span><span>klarere Prompts für konkrete Aufgaben</span></div>
+            <div class="list-item"><span class="check">✓</span><span>bessere Vorbereitung für Content und Marketing</span></div>
+            <div class="list-item"><span class="check">✓</span><span>wiederholbare Struktur statt Zufall</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="usecases">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Für die wichtigsten Content- und Marketing-Aufgaben.</h2>
+          <p>
+            Wähle deinen Use-Case, Ton, Sprache und dein Thema.
+            GLE erstellt daraus einen strukturierten Prompt für deinen nächsten Schritt.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <div class="card">
+            <div class="icon">S</div>
+            <h3>Social Media Posts</h3>
+            <p>Bereite klare Post-Strukturen für LinkedIn, Facebook, Instagram oder andere Kanäle vor.</p>
+          </div>
+
+          <div class="card">
+            <div class="icon">A</div>
+            <h3>Landingpages & Ads</h3>
+            <p>Erstelle Prompts für bessere Angebotsseiten, Werbetexte und klare Nutzenargumente.</p>
+          </div>
+
+          <div class="card">
+            <div class="icon">P</div>
+            <h3>Produkttexte</h3>
+            <p>Beschreibe Produkte strukturierter und bringe Vorteile verständlicher auf den Punkt.</p>
+          </div>
+
+          <div class="card">
+            <div class="icon">E</div>
+            <h3>E-Mails</h3>
+            <p>Bereite Prompts für Angebote, Follow-ups, Kundenkommunikation oder Kampagnen vor.</p>
+          </div>
+
+          <div class="card">
+            <div class="icon">B</div>
+            <h3>Blogartikel</h3>
+            <p>Strukturiere Themen, Briefings und längere Inhalte mit einem besseren Startpunkt.</p>
+          </div>
+
+          <div class="card">
+            <div class="icon">V</div>
+            <h3>Kurzvideo-Skripte</h3>
+            <p>Entwickle strukturierte Ideen für Reels, TikTok, Shorts oder kurze Videoformate.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="benefits">
+      <div class="wrap grid-2">
+        <div class="card">
+          <div class="icon">✓</div>
+          <h3>Einfacher starten</h3>
+          <p>
+            GLE nimmt dir den schwierigsten Teil ab: den ersten sauberen Aufbau deiner KI-Anfrage.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="icon">✓</div>
+          <h3>Weniger generische Ergebnisse</h3>
+          <p>
+            Durch klare Use-Cases, Tonalität und Kontext wird deine Eingabe konkreter und verwertbarer.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="icon">✓</div>
+          <h3>Mehr Struktur im Alltag</h3>
+          <p>
+            Wiederkehrende Aufgaben lassen sich schneller vorbereiten, statt jedes Mal neu zu beginnen.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="icon">✓</div>
+          <h3>Technik bleibt im Hintergrund</h3>
+          <p>
+            Kein Modell- oder API-Geschwafel. Entscheidend ist, dass du schneller zu brauchbaren Ergebnissen kommst.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Einfach starten. Später mitwachsen.</h2>
+          <p>
+            GLE Prompt Studio wird Schritt für Schritt erweitert.
+            Der Fokus bleibt auf verständlicher Nutzung, klaren Workflows und fairen Kontingenten.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <div class="card pricing">
+            <h3>Start</h3>
+            <div class="price">Free</div>
+            <p>Zum Ausprobieren und für erste strukturierte Prompts.</p>
+            <div class="list">
+              <div class="list-item"><span class="check">✓</span><span>Basis-Nutzung</span></div>
+              <div class="list-item"><span class="check">✓</span><span>begrenztes Monatskontingent</span></div>
+              <div class="list-item"><span class="check">✓</span><span>ideal zum Testen</span></div>
+            </div>
+          </div>
+
+          <div class="card pricing">
+            <h3>Pro</h3>
+            <div class="price">Für produktive Nutzung</div>
+            <p>Mehr Kontingent, mehr Komfort und stärkere Nutzung im Alltag.</p>
+            <div class="list">
+              <div class="list-item"><span class="check">✓</span><span>höheres Nutzungskontingent</span></div>
+              <div class="list-item"><span class="check">✓</span><span>PRO-Funktionen</span></div>
+              <div class="list-item"><span class="check">✓</span><span>optional mehr Kontrolle für Power-User</span></div>
+            </div>
+          </div>
+
+          <div class="card pricing">
+            <h3>Business</h3>
+            <div class="price">Geplant</div>
+            <p>Für erweiterte Workflows, Teams und spätere Analysefunktionen.</p>
+            <div class="list">
+              <div class="list-item"><span class="check">✓</span><span>größere Kontingente</span></div>
+              <div class="list-item"><span class="check">✓</span><span>Workflow- und Analysefunktionen</span></div>
+              <div class="list-item"><span class="check">✓</span><span>für wachsende Anforderungen</span></div>
+            </div>
+          </div>
+        </div>
+
+        <p class="small" style="margin-top:18px;">
+          Hinweis: Aufwendigere Funktionen wie Analyse- oder Workflow-Module können später mehr vom monatlichen Nutzungskontingent verbrauchen.
+        </p>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="wrap">
+        <div class="cta-box">
+          <h2>Starte mit einem besseren Prompt-Aufbau.</h2>
+          <p>
+            Nutze GLE Prompt Studio, um deine nächsten Social Posts, Ads, Landingpages,
+            Produkttexte, E-Mails, Blogartikel oder Kurzvideo-Ideen klarer vorzubereiten.
+          </p>
+
+          <a class="btn btn-primary" href="https://studio.getlaunchedge.com">
+            Zur App
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-row">
+      <div>© 2026 GetLaunchEdge / GLE Prompt Studio</div>
+      <div class="footer-links">
+        <a href="https://studio.getlaunchedge.com/impressum">Impressum</a>
+        <a href="https://studio.getlaunchedge.com/datenschutz">Datenschutz</a>
+        <a href="https://studio.getlaunchedge.com/support">Support</a>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
